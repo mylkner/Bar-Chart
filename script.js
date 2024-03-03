@@ -56,25 +56,14 @@ const render = async () => {
         .attr("width", 3)
         .attr("height", (d) => h - yScale(d[1]))
         .on("mouseover", (d, i) => {
-            const xLinearScale = d3
-                .scaleLinear()
-                .domain([0, 274])
-                .range([260, 1050]);
-
-            const yPowScale = d3
-                .scalePow()
-                .exponent(Math.E)
-                .domain([0, 274])
-                .range([70, 500]);
-
             d3.select("body")
                 .append("div")
                 .attr("data-date", i[0])
                 .attr("id", "tooltip")
                 .style("opacity", 0.8)
                 .style("position", "absolute")
-                .style("bottom", yPowScale(Number(d.target.id)) + "px")
-                .style("left", xLinearScale(Number(d.target.id)) + "px")
+                .style("top", yScale(i[1]) + "px")
+                .style("left", xScale(new Date(i[0])) + 200 + "px")
                 .text(() => {
                     const regex5 = /([\d]{5})/;
                     const regex4 = /([\d]{4})/;
